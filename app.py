@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 # Load model and label encoders
 model = joblib.load("model.pkl")
-label_encoders = joblib.load("all_label_encoders.pkl")  # a dict of all LabelEncoders
+label_encoders = joblib.load("label_encoders.pkl")  # a dict of all LabelEncoders
 true_value_encoder = label_encoders["True Value"]
 
 # Define expected fields in correct order
