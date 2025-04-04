@@ -89,7 +89,6 @@ def predict():
         decoded = true_value_encoder.inverse_transform(prediction)
 
         return jsonify({
-            "prediction_code": int(prediction[0]),
             "prediction_label": decoded[0]
         })
     except Exception as e:
