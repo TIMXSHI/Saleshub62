@@ -67,8 +67,6 @@ def predict():
         schema:
           type: object
           properties:
-            prediction_code:
-              type: integer
             prediction_label:
               type: string
     """
