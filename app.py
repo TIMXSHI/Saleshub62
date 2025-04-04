@@ -4,6 +4,22 @@ import numpy as np
 from flasgger import Swagger
 
 app = Flask(__name__)
+
+# Flasgger config to serve OpenAPI JSON at a consistent endpoint
+app.config['SWAGGER'] = {
+    'title': 'Cost Categorisation API',
+    'uiversion': 3,
+    'specs': [
+        {
+            'endpoint': 'apispec',
+            'route': '/swagger.json',
+            'rule_filter': lambda rule: True,
+            'model_filter': lambda tag: True,
+        }
+    ]
+}
+
+
 Swagger(app)  # Initialize Swagger UI
 
 # Load model and label encoders
