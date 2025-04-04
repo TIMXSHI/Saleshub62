@@ -36,43 +36,41 @@ def predict():
     """
     Predict cost category (Capex/Opex)
     ---
-    tags:
-      - Prediction
-    requestBody:
-      required: true
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              Project Name:
-                type: string
-              Project Type:
-                type: string
-              Project Stage:
-                type: string
-              Invoice Amount:
-                type: number
-              Recurring Expense?:
-                type: integer
-              Useful Life Expectancy:
-                type: number
-              Vendor Name:
-                type: string
-              Department:
-                type: string
+    consumes:
+      - application/json
+    parameters:
+      - in: body
+        name: body
+        required: true
+        schema:
+          type: object
+          properties:
+            Project Name:
+              type: string
+            Project Type:
+              type: string
+            Project Stage:
+              type: string
+            Invoice Amount:
+              type: number
+            Recurring Expense?:
+              type: integer
+            Useful Life Expectancy:
+              type: number
+            Vendor Name:
+              type: string
+            Department:
+              type: string
     responses:
       200:
         description: Prediction result
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                prediction_code:
-                  type: integer
-                prediction_label:
-                  type: string
+        schema:
+          type: object
+          properties:
+            prediction_code:
+              type: integer
+            prediction_label:
+              type: string
     """
     try:
         data = request.get_json()
