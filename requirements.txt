@@ -2,4 +2,5 @@ Flask
 joblib
 scikit-learn
 numpy
-flasgger
+flask==2.2.5
+flasgger==0.9.7.1
