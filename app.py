@@ -1,8 +1,10 @@
 from flask import Flask, request, jsonify
 import joblib
 import numpy as np
+from flasgger import Swagger
 
 app = Flask(__name__)
+Swagger(app)  # Initialize Swagger UI
 
 # Load model and label encoders
 model = joblib.load("model.pkl")
@@ -15,6 +17,47 @@ expected_fields = ['Project Name', 'Project Type', 'Project Stage', 'Invoice Amo
 
 @app.route("/predict", methods=["POST"])
 def predict():
+    """
+    Predict cost category (Capex/Opex)
+    ---
+    tags:
+      - Prediction
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              Project Name:
+                type: string
+              Project Type:
+                type: string
+              Project Stage:
+                type: string
+              Invoice Amount:
+                type: number
+              Recurring Expense?:
+                type: integer
+              Useful Life Expectancy:
+                type: number
+              Vendor Name:
+                type: string
+              Department:
+                type: string
+    responses:
+      200:
+        description: Prediction result
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                prediction_code:
+                  type: integer
+                prediction_label:
+                  type: string
+    """
     try:
         data = request.get_json()
 
@@ -37,7 +80,11 @@ def predict():
         })
     except Exception as e:
         return jsonify({"error": str(e)})
-    
+
+
+@app.route("/", methods=["GET"])
+def home():
+    return "🚀 Flask ML API is live!"
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=8000)
