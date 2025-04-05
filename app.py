@@ -28,8 +28,8 @@ label_encoders = joblib.load("label_encoder.pkl")  # a dict of all LabelEncoders
 true_value_encoder = label_encoders["True Value"]
 
 # Define expected fields in correct order
-expected_fields = ['Project Name', 'Project Type', 'Project Stage', 'Invoice Amount',
-                   'Recurring Expense?', 'Useful Life Expectancy', 'Vendor Name', 'Department']
+expected_fields = [ 'Project Type', 'Project Stage', 'Invoice Amount',
+                   'Recurring Expense?', 'Useful Life Expectancy']
 
 @app.route("/predict", methods=["POST"])
 def predict():
@@ -45,8 +45,6 @@ def predict():
         schema:
           type: object
           properties:
-            Project Name:
-              type: string
             Project Type:
               type: string
             Project Stage:
@@ -57,10 +55,7 @@ def predict():
               type: integer
             Useful Life Expectancy:
               type: number
-            Vendor Name:
-              type: string
-            Department:
-              type: string
+            
     responses:
       200:
         description: Prediction result
